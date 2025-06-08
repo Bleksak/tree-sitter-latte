@@ -15,12 +15,12 @@
     "generate": "./node_modules/.bin/tree-sitter generate",
     "test": "./node_modules/.bin/tree-sitter test"
   },
-  "author": "Michael Strobel",
+  "author": "Jiri Velek",
   "license": "MIT",
   "dependencies": {
     "nan": "^2.17.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.8"
+    "tree-sitter-cli": "^0.25.6"
   }
 }

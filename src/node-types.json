@@ -1,16 +1,58 @@
 [
   {
-    "type": "block",
+    "type": "asset",
     "named": true,
     "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "assignment",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "atomicType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "fqcn",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "block",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "body",
-          "named": true
-        },
         {
           "type": "parameter",
           "named": true
@@ -27,11 +69,99 @@
       "required": true,
       "types": [
         {
+          "type": "asset",
+          "named": true
+        },
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "breakIf",
+          "named": true
+        },
+        {
+          "type": "cache",
+          "named": true
+        },
+        {
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "contentType",
+          "named": true
+        },
+        {
+          "type": "continueIf",
+          "named": true
+        },
+        {
+          "type": "control",
+          "named": true
+        },
+        {
+          "type": "debugbreak",
+          "named": true
+        },
+        {
+          "type": "default_assignment",
+          "named": true
+        },
+        {
+          "type": "define",
+          "named": true
+        },
+        {
+          "type": "do",
+          "named": true
+        },
+        {
+          "type": "dump",
+          "named": true
+        },
+        {
+          "type": "embed",
+          "named": true
+        },
+        {
+          "type": "exitIf",
+          "named": true
+        },
+        {
+          "type": "extends",
+          "named": true
+        },
+        {
+          "type": "first",
+          "named": true
+        },
+        {
+          "type": "for",
+          "named": true
+        },
+        {
           "type": "foreach",
           "named": true
         },
         {
+          "type": "form",
+          "named": true
+        },
+        {
+          "type": "form_container",
+          "named": true
+        },
+        {
           "type": "if",
+          "named": true
+        },
+        {
+          "type": "ifchanged",
+          "named": true
+        },
+        {
+          "type": "ifset",
           "named": true
         },
         {
@@ -43,20 +173,415 @@
           "named": true
         },
         {
-          "type": "nocache",
+          "type": "input",
+          "named": true
+        },
+        {
+          "type": "input_error",
+          "named": true
+        },
+        {
+          "type": "iterateWhile",
+          "named": true
+        },
+        {
+          "type": "l",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "last",
+          "named": true
+        },
+        {
+          "type": "layout",
+          "named": true
+        },
+        {
+          "type": "link",
+          "named": true
+        },
+        {
+          "type": "parameters_tag",
+          "named": true
+        },
+        {
+          "type": "php",
+          "named": true
+        },
+        {
+          "type": "php_only",
+          "named": true
+        },
+        {
+          "type": "plink",
+          "named": true
+        },
+        {
+          "type": "preload",
+          "named": true
+        },
+        {
+          "type": "r",
+          "named": true
+        },
+        {
+          "type": "sandbox",
+          "named": true
+        },
+        {
+          "type": "sep",
+          "named": true
+        },
+        {
+          "type": "skipIf",
+          "named": true
+        },
+        {
+          "type": "snippet",
+          "named": true
+        },
+        {
+          "type": "snippet_area",
+          "named": true
+        },
+        {
+          "type": "spaceless",
+          "named": true
+        },
+        {
+          "type": "switch",
+          "named": true
+        },
+        {
+          "type": "switch_branch",
+          "named": true
+        },
+        {
+          "type": "syntax",
+          "named": true
+        },
+        {
+          "type": "templatePrint",
+          "named": true
+        },
+        {
+          "type": "templateType",
           "named": true
         },
         {
           "type": "text",
+          "named": true
+        },
+        {
+          "type": "trace",
+          "named": true
+        },
+        {
+          "type": "translate",
+          "named": true
+        },
+        {
+          "type": "translation_print",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        },
+        {
+          "type": "varPrint",
+          "named": true
+        },
+        {
+          "type": "varType",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "comment",
+    "type": "boolean_parameter",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "breakIf",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cache",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parameter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "capture",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "case_branch",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      },
+      "values": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "contentType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "continueIf",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "control",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parameter_value",
+          "named": true
+        },
+        {
+          "type": "php_only",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "debugbreak",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "php_only",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "default_assignment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "php_only",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "default_branch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "define",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "do",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "php_only",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dump",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "php_only",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "else",
@@ -93,7 +618,145 @@
         "required": true,
         "types": [
           {
-            "type": "text",
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "elseifset",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "embed",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exitIf",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "extends",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "first",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "for",
+    "named": true,
+    "fields": {
+      "assignment": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "assignment",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "condition",
+            "named": true
+          }
+        ]
+      },
+      "increment": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "increment",
             "named": true
           }
         ]
@@ -109,7 +772,7 @@
         "required": false,
         "types": [
           {
-            "type": "foreach_else",
+            "type": "else",
             "named": true
           }
         ]
@@ -123,22 +786,125 @@
             "named": true
           }
         ]
+      },
+      "iterable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      },
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
       }
-    }
-  },
-  {
-    "type": "foreach_else",
-    "named": true,
-    "fields": {},
+    },
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "body",
+          "type": "as",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "form",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "form_container",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fqcn",
+    "named": true,
+    "fields": {
+      "class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "class",
+            "named": true
+          }
+        ]
+      },
+      "namespace": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "namespace",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -174,7 +940,83 @@
         "required": true,
         "types": [
           {
-            "type": "text",
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ifchanged",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "else",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "ifset",
+    "named": true,
+    "fields": {
+      "alternative": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "else",
+            "named": true
+          },
+          {
+            "type": "elseifset",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
             "named": true
           }
         ]
@@ -186,8 +1028,42 @@
     "named": true,
     "fields": {},
     "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "include_basic",
+          "named": true
+        },
+        {
+          "type": "include_from",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include_basic",
+    "named": true,
+    "fields": {},
+    "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include_from",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "parameter",
@@ -209,19 +1085,19 @@
           "named": true
         },
         {
-          "type": "php",
+          "type": "php_only",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "modifier",
+    "type": "input",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "parameter",
@@ -231,7 +1107,86 @@
     }
   },
   {
-    "type": "nocache",
+    "type": "input_error",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "iterateWhile",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "text",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "key_value_parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter_name",
+          "named": true
+        },
+        {
+          "type": "parameter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "long_label",
+          "named": true
+        },
+        {
+          "type": "short_label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "last",
     "named": true,
     "fields": {
       "body": {
@@ -247,12 +1202,67 @@
     }
   },
   {
-    "type": "php",
+    "type": "layout",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
   },
   {
-    "type": "template",
+    "type": "link",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "php_only",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "long_label",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "modifier",
     "named": true,
     "fields": {},
     "children": {
@@ -260,7 +1270,433 @@
       "required": false,
       "types": [
         {
+          "type": "parameter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "namespace",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "php_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "key_value_parameter",
+          "named": true
+        },
+        {
+          "type": "parameter_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "boolean_parameter",
+          "named": true
+        },
+        {
+          "type": "decimal_parameter",
+          "named": true
+        },
+        {
+          "type": "double_quoted_string",
+          "named": true
+        },
+        {
+          "type": "integer_parameter",
+          "named": true
+        },
+        {
+          "type": "php_only",
+          "named": true
+        },
+        {
+          "type": "single_quoted_string",
+          "named": true
+        },
+        {
+          "type": "unquoted_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameters_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "php",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "php_only",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "plink",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "php_only",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preload",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sandbox",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sep",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "short_label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "skipIf",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "snippet",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "snippet_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "snippet_area",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "snippet_area_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "spaceless",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "switch",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "php_only",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "switch_branch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "case_branch",
+          "named": true
+        },
+        {
+          "type": "default_branch",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "syntax",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "template",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "asset",
+          "named": true
+        },
+        {
           "type": "block",
+          "named": true
+        },
+        {
+          "type": "breakIf",
+          "named": true
+        },
+        {
+          "type": "cache",
+          "named": true
+        },
+        {
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "contentType",
+          "named": true
+        },
+        {
+          "type": "continueIf",
+          "named": true
+        },
+        {
+          "type": "control",
+          "named": true
+        },
+        {
+          "type": "debugbreak",
+          "named": true
+        },
+        {
+          "type": "default_assignment",
+          "named": true
+        },
+        {
+          "type": "define",
+          "named": true
+        },
+        {
+          "type": "do",
+          "named": true
+        },
+        {
+          "type": "dump",
+          "named": true
+        },
+        {
+          "type": "embed",
+          "named": true
+        },
+        {
+          "type": "exitIf",
+          "named": true
+        },
+        {
+          "type": "extends",
+          "named": true
+        },
+        {
+          "type": "first",
+          "named": true
+        },
+        {
+          "type": "for",
           "named": true
         },
         {
@@ -268,7 +1704,23 @@
           "named": true
         },
         {
+          "type": "form",
+          "named": true
+        },
+        {
+          "type": "form_container",
+          "named": true
+        },
+        {
           "type": "if",
+          "named": true
+        },
+        {
+          "type": "ifchanged",
+          "named": true
+        },
+        {
+          "type": "ifset",
           "named": true
         },
         {
@@ -280,11 +1732,138 @@
           "named": true
         },
         {
-          "type": "nocache",
+          "type": "input",
+          "named": true
+        },
+        {
+          "type": "input_error",
+          "named": true
+        },
+        {
+          "type": "iterateWhile",
+          "named": true
+        },
+        {
+          "type": "l",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "last",
+          "named": true
+        },
+        {
+          "type": "layout",
+          "named": true
+        },
+        {
+          "type": "link",
+          "named": true
+        },
+        {
+          "type": "parameters_tag",
+          "named": true
+        },
+        {
+          "type": "php",
+          "named": true
+        },
+        {
+          "type": "plink",
+          "named": true
+        },
+        {
+          "type": "preload",
+          "named": true
+        },
+        {
+          "type": "r",
+          "named": true
+        },
+        {
+          "type": "sandbox",
+          "named": true
+        },
+        {
+          "type": "sep",
+          "named": true
+        },
+        {
+          "type": "skipIf",
+          "named": true
+        },
+        {
+          "type": "snippet",
+          "named": true
+        },
+        {
+          "type": "snippet_area",
+          "named": true
+        },
+        {
+          "type": "spaceless",
+          "named": true
+        },
+        {
+          "type": "switch",
+          "named": true
+        },
+        {
+          "type": "syntax",
+          "named": true
+        },
+        {
+          "type": "templatePrint",
+          "named": true
+        },
+        {
+          "type": "templateType",
           "named": true
         },
         {
           "type": "text",
+          "named": true
+        },
+        {
+          "type": "trace",
+          "named": true
+        },
+        {
+          "type": "translate",
+          "named": true
+        },
+        {
+          "type": "translation_print",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        },
+        {
+          "type": "varPrint",
+          "named": true
+        },
+        {
+          "type": "varType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "templateType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "fqcn",
           "named": true
         }
       ]
@@ -296,7 +1875,119 @@
     "fields": {}
   },
   {
-    "type": "*}",
+    "type": "translate",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "body",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "translation_print",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "atomicType",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "var",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "name",
+          "named": true
+        },
+        {
+          "type": "php_only",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "varPrint",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "varType",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variable",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "/}",
     "named": false
   },
   {
@@ -304,15 +1995,164 @@
     "named": false
   },
   {
+    "type": ";",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": "=>",
     "named": false
   },
   {
-    "type": "as",
+    "type": "?",
     "named": false
   },
   {
-    "type": "parameter",
+    "type": "\\",
+    "named": false
+  },
+  {
+    "type": "all",
+    "named": false
+  },
+  {
+    "type": "array",
+    "named": false
+  },
+  {
+    "type": "as",
+    "named": true
+  },
+  {
+    "type": "bool",
+    "named": false
+  },
+  {
+    "type": "callable",
+    "named": false
+  },
+  {
+    "type": "class",
+    "named": true
+  },
+  {
+    "type": "comment",
+    "named": true,
+    "extra": true
+  },
+  {
+    "type": "condition",
+    "named": true
+  },
+  {
+    "type": "decimal_parameter",
+    "named": true
+  },
+  {
+    "type": "double_quoted_string",
+    "named": true
+  },
+  {
+    "type": "false",
+    "named": false
+  },
+  {
+    "type": "from",
+    "named": false
+  },
+  {
+    "type": "from",
+    "named": true
+  },
+  {
+    "type": "increment",
+    "named": true
+  },
+  {
+    "type": "int",
+    "named": false
+  },
+  {
+    "type": "integer_parameter",
+    "named": true
+  },
+  {
+    "type": "iterable",
+    "named": false
+  },
+  {
+    "type": "l",
+    "named": true
+  },
+  {
+    "type": "mixed",
+    "named": false
+  },
+  {
+    "type": "name",
+    "named": true
+  },
+  {
+    "type": "null",
+    "named": false
+  },
+  {
+    "type": "object",
+    "named": false
+  },
+  {
+    "type": "parameter_name",
+    "named": true
+  },
+  {
+    "type": "php_identifier",
+    "named": true
+  },
+  {
+    "type": "r",
+    "named": true
+  },
+  {
+    "type": "resource",
+    "named": false
+  },
+  {
+    "type": "single_quoted_string",
+    "named": true
+  },
+  {
+    "type": "snippet_area_name",
+    "named": true
+  },
+  {
+    "type": "snippet_name",
+    "named": true
+  },
+  {
+    "type": "string",
+    "named": false
+  },
+  {
+    "type": "templatePrint",
+    "named": true
+  },
+  {
+    "type": "trace",
+    "named": true
+  },
+  {
+    "type": "true",
+    "named": false
+  },
+  {
+    "type": "unquoted_string",
+    "named": true
+  },
+  {
+    "type": "value",
     "named": true
   },
   {
@@ -320,11 +2160,23 @@
     "named": false
   },
   {
-    "type": "{*",
+    "type": "{/block}",
     "named": false
   },
   {
-    "type": "{/block}",
+    "type": "{/cache}",
+    "named": false
+  },
+  {
+    "type": "{/capture}",
+    "named": false
+  },
+  {
+    "type": "{/define}",
+    "named": false
+  },
+  {
+    "type": "{/first}",
     "named": false
   },
   {
@@ -332,11 +2184,79 @@
     "named": false
   },
   {
+    "type": "{/formContainer}",
+    "named": false
+  },
+  {
+    "type": "{/form}",
+    "named": false
+  },
+  {
+    "type": "{/for}",
+    "named": false
+  },
+  {
+    "type": "{/ifchanged}",
+    "named": false
+  },
+  {
+    "type": "{/ifset}",
+    "named": false
+  },
+  {
     "type": "{/if}",
     "named": false
   },
   {
-    "type": "{/nocache}",
+    "type": "{/iterateWhile",
+    "named": false
+  },
+  {
+    "type": "{/label}",
+    "named": false
+  },
+  {
+    "type": "{/last}",
+    "named": false
+  },
+  {
+    "type": "{/php}",
+    "named": false
+  },
+  {
+    "type": "{/sep}",
+    "named": false
+  },
+  {
+    "type": "{/snippetArea}",
+    "named": false
+  },
+  {
+    "type": "{/snippet}",
+    "named": false
+  },
+  {
+    "type": "{/spaceless}",
+    "named": false
+  },
+  {
+    "type": "{/switch}",
+    "named": false
+  },
+  {
+    "type": "{/syntax}",
+    "named": false
+  },
+  {
+    "type": "{/translate}",
+    "named": false
+  },
+  {
+    "type": "{_",
+    "named": false
+  },
+  {
+    "type": "{asset",
     "named": false
   },
   {
@@ -344,7 +2264,63 @@
     "named": false
   },
   {
+    "type": "{breakIf",
+    "named": false
+  },
+  {
+    "type": "{cache",
+    "named": false
+  },
+  {
+    "type": "{capture",
+    "named": false
+  },
+  {
+    "type": "{case",
+    "named": false
+  },
+  {
+    "type": "{contentType",
+    "named": false
+  },
+  {
+    "type": "{continueIf",
+    "named": false
+  },
+  {
+    "type": "{control",
+    "named": false
+  },
+  {
+    "type": "{debugbreak",
+    "named": false
+  },
+  {
+    "type": "{default",
+    "named": false
+  },
+  {
+    "type": "{default}",
+    "named": false
+  },
+  {
+    "type": "{define",
+    "named": false
+  },
+  {
+    "type": "{do",
+    "named": false
+  },
+  {
+    "type": "{dump",
+    "named": false
+  },
+  {
     "type": "{elseif",
+    "named": false
+  },
+  {
+    "type": "{elseifset",
     "named": false
   },
   {
@@ -352,11 +2328,35 @@
     "named": false
   },
   {
+    "type": "{embed",
+    "named": false
+  },
+  {
+    "type": "{exitIf",
+    "named": false
+  },
+  {
+    "type": "{extends",
+    "named": false
+  },
+  {
+    "type": "{first}",
+    "named": false
+  },
+  {
+    "type": "{for",
+    "named": false
+  },
+  {
     "type": "{foreach",
     "named": false
   },
   {
-    "type": "{foreachelse}",
+    "type": "{form",
+    "named": false
+  },
+  {
+    "type": "{formContainer",
     "named": false
   },
   {
@@ -364,11 +2364,111 @@
     "named": false
   },
   {
+    "type": "{ifchanged",
+    "named": false
+  },
+  {
+    "type": "{ifset",
+    "named": false
+  },
+  {
     "type": "{include",
     "named": false
   },
   {
-    "type": "{nocache}",
+    "type": "{input",
+    "named": false
+  },
+  {
+    "type": "{inputError",
+    "named": false
+  },
+  {
+    "type": "{iterateWhile}",
+    "named": false
+  },
+  {
+    "type": "{label",
+    "named": false
+  },
+  {
+    "type": "{last}",
+    "named": false
+  },
+  {
+    "type": "{layout",
+    "named": false
+  },
+  {
+    "type": "{link",
+    "named": false
+  },
+  {
+    "type": "{parameters",
+    "named": false
+  },
+  {
+    "type": "{php}",
+    "named": false
+  },
+  {
+    "type": "{plink",
+    "named": false
+  },
+  {
+    "type": "{preload",
+    "named": false
+  },
+  {
+    "type": "{sandbox",
+    "named": false
+  },
+  {
+    "type": "{sep}",
+    "named": false
+  },
+  {
+    "type": "{skipIf",
+    "named": false
+  },
+  {
+    "type": "{snippet",
+    "named": false
+  },
+  {
+    "type": "{snippetArea",
+    "named": false
+  },
+  {
+    "type": "{spaceless}",
+    "named": false
+  },
+  {
+    "type": "{switch",
+    "named": false
+  },
+  {
+    "type": "{syntax off}",
+    "named": false
+  },
+  {
+    "type": "{templateType",
+    "named": false
+  },
+  {
+    "type": "{translate",
+    "named": false
+  },
+  {
+    "type": "{var",
+    "named": false
+  },
+  {
+    "type": "{varPrint",
+    "named": false
+  },
+  {
+    "type": "{varType",
     "named": false
   },
   {
