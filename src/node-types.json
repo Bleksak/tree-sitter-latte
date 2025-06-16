@@ -1102,6 +1102,10 @@
         {
           "type": "parameter",
           "named": true
+        },
+        {
+          "type": "parameter_value",
+          "named": true
         }
       ]
     }
@@ -1256,6 +1260,10 @@
       "types": [
         {
           "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parameter_value",
           "named": true
         }
       ]
@@ -1468,6 +1476,10 @@
       "types": [
         {
           "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parameter_value",
           "named": true
         }
       ]

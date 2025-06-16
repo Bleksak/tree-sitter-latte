@@ -2237,7 +2237,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "parameter"
+          "name": "parameter_value"
         },
         {
           "type": "REPEAT",
@@ -2270,7 +2270,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "parameter"
+          "name": "parameter_value"
         },
         {
           "type": "REPEAT",
@@ -2341,7 +2341,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "parameter"
+          "name": "parameter_value"
         },
         {
           "type": "REPEAT",

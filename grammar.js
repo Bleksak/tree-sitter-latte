@@ -498,14 +498,14 @@ module.exports = grammar({
 
     short_label: $ => seq(
       '{label',
-      $.parameter,
+      $.parameter_value,
       repeat(seq(',', $.parameter)),
       '/}',
     ),
 
     long_label: $ => seq(
       '{label',
-      $.parameter,
+      $.parameter_value,
       repeat(seq(',', $.parameter)),
       '}',
       field('body', alias(repeat($._latte), $.body)),
@@ -521,7 +521,7 @@ module.exports = grammar({
 
     input: $ => seq(
       '{input',
-      $.parameter,
+      $.parameter_value,
       repeat(seq(',', $.parameter)),
       '}',
     ),
