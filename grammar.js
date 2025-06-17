@@ -9,10 +9,38 @@ module.exports = grammar({
     /\s+/,
   ],
 
-  rules: {
-    template: $ => repeat($._latte),
+  externals: $ => [
+    $._start_tag_name,
+    $._script_start_tag_name,
+    $._style_start_tag_name,
+    $._end_tag_name,
+    $.erroneous_end_tag_name,
+    '/>',
+    $._implicit_end_tag,
+    $.raw_text,
+    $.comment,
+  ],
 
-    _latte: $ => choice(
+  rules: {
+    document: $ => repeat($._node),
+
+    doctype: $ => seq(
+      '<!',
+      alias($._doctype, 'doctype'),
+      /[^>]+/,
+      '>',
+    ),
+
+    _doctype: _ => /[Dd][Oo][Cc][Tt][Yy][Pp][Ee]/,
+
+    _node: $ => choice(
+      $.doctype,
+      $.entity,
+      $.text,
+      $.element,
+      $.script_element,
+      $.style_element,
+      $.erroneous_end_tag,
       $.templateType,
       $.block,
       $.define,
@@ -44,7 +72,7 @@ module.exports = grammar({
       $.sandbox,
       $.parameters_tag,
       $.capture,
-      $.text,
+      // $.text,
       $.translate,
       $.translation_print,
       $.default_assignment,
@@ -71,14 +99,105 @@ module.exports = grammar({
       $.preload,
     ),
 
+    element: $ => choice(
+      seq(
+        $.start_tag,
+        repeat($._node),
+        choice($.end_tag, $._implicit_end_tag),
+      ),
+      $.self_closing_tag,
+    ),
+
+    script_element: $ => seq(
+      alias($.script_start_tag, $.start_tag),
+      optional($.raw_text),
+      $.end_tag,
+    ),
+
+    style_element: $ => seq(
+      alias($.style_start_tag, $.start_tag),
+      optional($.raw_text),
+      $.end_tag,
+    ),
+
+    start_tag: $ => seq(
+      '<',
+      alias($._start_tag_name, $.tag_name),
+      repeat($.attribute),
+      '>',
+    ),
+
+    script_start_tag: $ => seq(
+      '<',
+      alias($._script_start_tag_name, $.tag_name),
+      repeat($.attribute),
+      '>',
+    ),
+
+    style_start_tag: $ => seq(
+      '<',
+      alias($._style_start_tag_name, $.tag_name),
+      repeat($.attribute),
+      '>',
+    ),
+
+    self_closing_tag: $ => seq(
+      '<',
+      alias($._start_tag_name, $.tag_name),
+      repeat($.attribute),
+      '/>',
+    ),
+
+    end_tag: $ => seq(
+      '</',
+      alias($._end_tag_name, $.tag_name),
+      '>',
+    ),
+
+    erroneous_end_tag: $ => seq(
+      '</',
+      $.erroneous_end_tag_name,
+      '>',
+    ),
+
+    attribute: $ => seq(
+      $.attribute_name,
+      optional(seq(
+        '=',
+        choice(
+          $.attribute_value,
+          $.quoted_attribute_value,
+        ),
+      )),
+    ),
+
+    attribute_name: _ => /[^<>"'/=\s]+/,
+
+    attribute_value: _ => /[^<>"'=\s]+/,
+
+    // An entity can be named, numeric (decimal), or numeric (hexacecimal). The
+    // longest entity name is 29 characters long, and the HTML spec says that
+    // no more will ever be added.
+    entity: _ => /&(#([xX][0-9a-fA-F]{1,6}|[0-9]{1,5})|[A-Za-z]{1,30});?/,
+
+    quoted_attribute_value: $ => choice(
+      seq('\'', optional(alias(/[^']+/, $.attribute_value)), '\''),
+      seq('"', optional(alias(/[^"]+/, $.attribute_value)), '"'),
+    ),
+
+    text: _ => /[^{}<>&\s]([^{}<>&]*[^{}<>&\s])?/,
+
+
+    // EVERYTHING BELOW IS LATTE
+
     l: _ => "{l}",
     r: _ => "{r}",
 
     ifset: $ => seq(
       '{ifset',
-      field('condition', $.php_only),
+      field('condition', $.expression),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       repeat(field('alternative', $.elseifset)),
       optional(field('alternative', $.else)),
       "{/ifset}",
@@ -86,23 +205,23 @@ module.exports = grammar({
 
     elseifset: $ => seq(
       '{elseifset',
-      field('condition', $.php_only),
+      field('condition', $.expression),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
     ),
 
     ifchanged: $ => seq(
       '{ifchanged',
-      field('condition', $.php_only),
+      field('condition', $.expression),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       optional(field('alternative', $.else)),
       "{/ifchanged}",
     ),
 
     switch: $ => seq(
       "{switch",
-      field('condition', $.php_only),
+      field('condition', $.expression),
       "}",
       alias(repeat($.switch_branch), $.body),
       "{/switch}",
@@ -110,15 +229,15 @@ module.exports = grammar({
 
     case_branch: $ => seq(
       '{case',
-      field('value', $.php_only),
-      field('values', repeat(seq(',', $.php_only))),
+      field('value', $.expression),
+      field('values', repeat(seq(',', $.expression))),
       '}',
-      alias(repeat($._latte), $.body),
+      alias(repeat($._node), $.body),
     ),
 
     default_branch: $ => seq(
       '{default}',
-      alias(repeat($._latte), $.body),
+      alias(repeat($._node), $.body),
     ),
 
     switch_branch: $ => choice(
@@ -141,7 +260,7 @@ module.exports = grammar({
     varType: $ => seq(
       '{varType',
       $.type,
-      alias($.php_only, $.var),
+      alias($._php_variable, $.var),
       '}'
     ),
 
@@ -157,9 +276,9 @@ module.exports = grammar({
       optional(
         $.type,
       ),
-      alias(/\$[^=]+/, $.name),
+      field('name', alias($._php_variable, $.expression)),
       '=',
-      $.php_only,
+      $.expression,
     ),
 
     var: $ => seq(
@@ -178,7 +297,7 @@ module.exports = grammar({
 
     inline: $ => seq(
       '{',
-      $.php_only,
+      $.expression,
       repeat(seq(
         '|',
         $.modifier,
@@ -244,7 +363,7 @@ module.exports = grammar({
       '{block',
       repeat($.parameter),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/block}',
     ),
 
@@ -252,30 +371,30 @@ module.exports = grammar({
       '{define',
       repeat($.parameter),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/define}',
     ),
 
     foreach: $ => seq(
       '{foreach',
-      field('iterable', $.php_only),
+      field('iterable', alias($.expression, $.expression)),
       alias('as', $.as),
-      field('key', $.php_only),
       optional(seq(
-        '=>',
-        field('value', $.php_only),
+        field('key', $.expression),
+        '=>'
       )),
+      field('value', $.expression),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       field('alternative', optional($.else)),
       '{/foreach}',
     ),
 
     iterateWhile: $ => seq(
       "{iterateWhile}",
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       "{/iterateWhile",
-      field('condition', alias(/[^}]+/, $.text)),
+      field('condition', $.expression),
       "}",
     ),
 
@@ -287,57 +406,57 @@ module.exports = grammar({
       ';',
       field('increment', alias(/[^}]+/, $.increment)),
       "}",
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/for}',
     ),
 
     first: $ => seq(
       '{first}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/first}'
     ),
 
     last: $ => seq(
       '{last}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/last}'
     ),
 
     sep: $ => seq(
       '{sep}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/sep}'
     ),
 
     continueIf: $ => seq(
       "{continueIf",
-      field('condition', $.php_only),
+      field('condition', $.expression),
       "}",
     ),
 
     skipIf: $ => seq(
       "{skipIf",
-      field('condition', $.php_only),
+      field('condition', $.expression),
       "}",
     ),
 
     breakIf: $ => seq(
       "{breakIf",
-      field('condition', $.php_only),
+      field('condition', $.expression),
       "}",
     ),
 
     exitIf: $ => seq(
       "{exitIf",
-      field('condition', $.php_only),
+      field('condition', $.expression),
       "}",
     ),
 
     if: $ => seq(
       '{if',
-      field('condition', $.php_only),
+      field('condition', $.expression),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       repeat(field('alternative', $.else_if)),
       optional(field('alternative', $.else)),
       '{/if}',
@@ -345,14 +464,14 @@ module.exports = grammar({
 
     else_if: $ => seq(
       '{elseif',
-      field('condition', $.php_only),
+      field('condition', $.expression),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
     ),
 
     else: $ => seq(
       '{else}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
     ),
 
     _optional_var_assignment: $ => seq(
@@ -364,7 +483,7 @@ module.exports = grammar({
         optional(
           seq(
             '=',
-            $.php_only,
+            $.expression,
           ),
         ),
         $.assignment,
@@ -380,9 +499,9 @@ module.exports = grammar({
 
     capture: $ => seq(
       '{capture',
-      alias($.php_only, $.variable),
+      alias($._php_variable, $.variable),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/capture}',
     ),
 
@@ -398,7 +517,7 @@ module.exports = grammar({
       optional($.parameter),
       repeat(seq(',', $.parameter)),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/translate}',
     ),
 
@@ -410,19 +529,19 @@ module.exports = grammar({
 
     debugbreak: $ => seq(
       '{debugbreak',
-      optional($.php_only),
+      optional($._php_variable),
       '}',
     ),
 
     do: $ => seq(
       '{do',
-      $.php_only,
+      $.expression,
       '}',
     ),
 
     dump: $ => seq(
       '{dump',
-      optional($.php_only),
+      optional($.expression),
       '}',
     ),
 
@@ -434,13 +553,13 @@ module.exports = grammar({
 
     spaceless: $ => seq(
       "{spaceless}",
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       "{/spaceless}",
     ),
 
     syntax: $ => seq(
       "{syntax off}",
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       "{/syntax}",
     ),
 
@@ -470,17 +589,17 @@ module.exports = grammar({
 
     snippet: $ => seq(
       '{snippet',
-      alias($.php_identifier, $.snippet_name),
+      alias($._php_identifier, $.snippet_name),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/snippet}',
     ),
 
     snippet_area: $ => seq(
       '{snippetArea',
-      alias($.php_identifier, $.snippet_area_name),
+      alias($._php_identifier, $.snippet_area_name),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/snippetArea}',
     ),
 
@@ -489,7 +608,7 @@ module.exports = grammar({
       optional($.parameter_value),
       repeat(seq(',', $.parameter)),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/cache}',
     ),
 
@@ -497,7 +616,7 @@ module.exports = grammar({
       '{form',
       $.parameter_value,
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/form}',
     ),
 
@@ -513,7 +632,7 @@ module.exports = grammar({
       $.parameter_value,
       repeat(seq(',', $.parameter)),
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/label}',
     ),
 
@@ -541,7 +660,7 @@ module.exports = grammar({
       '{formContainer',
       $.parameter_value,
       '}',
-      field('body', alias(repeat($._latte), $.body)),
+      field('body', alias(repeat($._node), $.body)),
       '{/formContainer}',
     ),
 
@@ -609,7 +728,7 @@ module.exports = grammar({
     ),
 
     php_only: ($) => prec.right(repeat1($._text)),
-    text: ($) => prec.right(repeat1($._text)),
+    // text: ($) => prec.right(repeat1($._text)),
 
     // hidden to reduce AST noise in php_only
     _text: _ =>
@@ -629,15 +748,15 @@ module.exports = grammar({
         field('namespace',
           alias(
             seq(
-              $.php_identifier,
-              repeat(seq('\\', $.php_identifier)),
+              $._php_identifier,
+              repeat(seq('\\', $._php_identifier)),
             ),
             $.namespace,
           )
         ),
       ),
       optional('\\'),
-      field('class', alias($.php_identifier, $.class)),
+      field('class', alias($._php_identifier, $.class)),
     ),
 
     atomicType: $ => choice(
@@ -660,8 +779,97 @@ module.exports = grammar({
       repeat(seq('|', $.atomicType)),
     ),
 
-    php_identifier: _ => /[A-Za-z][A-Za-z0-9_]*/,
     class_name: _ => /[A-Za-z][A-Za-z0-9_]*/,
+
+    expression: $ => choice(
+      $._php_variable,
+      $._php_member_access,
+      $._php_static_access,
+      $._php_subscript_expression,
+      $._php_function_call,
+      $._php_new_expression,
+      $._php_array_literal,
+      $._php_binary_expression,
+      $._php_ternary_expression,
+      $._php_parenthesized_expression,
+      $._php_identifier,
+      $._php_string,
+      $._php_number
+    ),
+
+    _php_static_access: $ => seq(
+      field('class', choice('self', 'static', 'parent', $._php_identifier)),
+      '::',
+      field('member', choice($._php_identifier, $._php_function_call))
+    ),
+
+    _php_variable: $ => /\$[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*/,
+
+    _php_identifier: $ => /[a-zA-Z_\\][a-zA-Z0-9_\\]*/,
+
+    _php_function_call: $ => seq(
+      field('function', $._php_identifier),
+      '(',
+      optional(sepBy(',', $.expression)),
+      ')'
+    ),
+
+    _php_member_access: $ => prec.left(seq(
+      field('object', $.expression),
+      '->',
+      field('member', $.expression),
+    )),
+
+    _php_subscript_expression: $ => seq(
+      field('object', $.expression),
+      '[',
+      field('index', $.expression),
+      ']'
+    ),
+
+    _php_new_expression: $ => seq(
+      'new',
+      $._php_identifier,
+      '(',
+      optional(sepBy(',', $.expression)),
+      ')'
+    ),
+
+    _php_array_literal: $ => seq(
+      '[',
+      optional(sepBy(',', $.expression)),
+      ']'
+    ),
+
+    _php_binary_expression: $ => prec.left(1, seq(
+      field('left', $.expression),
+      field('operator', choice('+', '-', '*', '/', '%', '.', '??', '&&', '||', '==', '!=', '<', '>', '<=', '>=', '===', '!==')),
+      field('right', $.expression)
+    )),
+
+    _php_ternary_expression: $ => prec.right(1, seq(
+      field('condition', $.expression),
+      '?',
+      field('consequence', $.expression),
+      ':',
+      field('alternative', $.expression)
+    )),
+
+    _php_parenthesized_expression: $ => seq(
+      '(',
+      $.expression,
+      ')'
+    ),
+
+    _php_string: $ => choice(
+      seq("'", repeat(/[^']/), "'"),
+      seq('"', repeat(/[^"]/), '"')
+    ),
+
+    _php_number: $ => /\d+(\.\d+)?/,
   },
 });
 
+function sepBy(sep, rule) {
+  return optional(seq(rule, repeat(seq(sep, rule))));
+}
